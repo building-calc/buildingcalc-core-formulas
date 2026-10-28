@@ -1,0 +1,6 @@
+export function calculateBrickCount(wallAreaSqM: number, brickLengthM: number, brickHeightM: number, mortarJointM: number = 0.01): number {
+  const effectiveLength = brickLengthM + mortarJointM;
+  const effectiveHeight = brickHeightM + mortarJointM;
+  const brickArea = effectiveLength * effectiveHeight;
+  return Math.ceil(wallAreaSqM / brickArea);
+}
