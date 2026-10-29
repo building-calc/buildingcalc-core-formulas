@@ -1,6 +1,19 @@
-export function calculateBrickCount(wallAreaSqM: number, brickLengthM: number, brickHeightM: number, mortarJointM: number = 0.01): number {
-  const effectiveLength = brickLengthM + mortarJointM;
-  const effectiveHeight = brickHeightM + mortarJointM;
-  const brickArea = effectiveLength * effectiveHeight;
-  return Math.ceil(wallAreaSqM / brickArea);
-}
+import test from "node:test";
+import assert from "node:assert/strict";
+import { calculateSlabVolume } from "../src/concrete/slab.js";
+
+test("calculates rectangular slab volume", () => {
+  assert.equal(calculateSlabVolume(5, 4, 0.15), 3);
+});
+
+test("returns zero for zero dimensions", () => {
+  assert.equal(calculateSlabVolume(5, 4, 0), 0);
+});
+
+test("returns zero for negative dimensions", () => {
+  assert.equal(calculateSlabVolume(-5, 4, 0.15), 0);
+});
+
+test("returns zero for non-finite inputs", () => {
+  assert.equal(calculateSlabVolume(Infinity, 4, 0.15), 0);
+});
